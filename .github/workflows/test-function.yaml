@@ -33,6 +33,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Install Firebase Tools
+        run: npm install -g firebase-tools
+
       - name: Deploy functions directly
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
