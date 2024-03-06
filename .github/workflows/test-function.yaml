@@ -38,10 +38,15 @@ jobs:
 
       - name: Deploy functions directly
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}
+          FIREBASE_TOKEN: ${{secrets.FIREBASE_TOKEN}}
         run: |
           cd functions
           firebase deploy --only functions
+          if [[ $? -ne 0 ]]; then
+             echo "Deployment failed. Check if secrets and permissions are correct."
+             exit 1
+           fi
 
   create_function_input:
     needs: lint_and_test
