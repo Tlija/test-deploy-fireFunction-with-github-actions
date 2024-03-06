@@ -70,6 +70,6 @@ jobs:
               title: 'Create Cloud Function',
               head: context.sha,
               base: 'main', // Or master, depending on your default branch
-#              body: 'Create a new Cloud Function with the name ' + '${{ steps.set_function_name.outputs.function_name }}',
+              body: 'Create a new Cloud Function with the name ' + '${{ steps.set_function_name.outputs.function_name }}',
             });
             console.log(response);
