@@ -3,7 +3,7 @@ name: Cloud Functions Deployment Workflow
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
 
 jobs:
   lint_and_test:
