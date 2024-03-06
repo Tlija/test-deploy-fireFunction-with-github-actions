@@ -41,7 +41,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}
         run: |
           cd functions
-          firebase deploy --only --GOOGLE_APPLICATION_CREDENTIALS functions
+          firebase deploy --only  functions
      
 
   create_function_input:
