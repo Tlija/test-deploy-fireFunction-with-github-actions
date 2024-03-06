@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { firstFunctionHttp } from "../index";
 
-describe("My first Test Cloud Function wit Jest and Typescript", () => {
+describe("My first Test Cloud Function with Jest and Typescript", () => {
   test("Call the function firstFunctionHttp must retu 'test fireFunction'", () => {
     const req = {} as Request;
     const res = {
