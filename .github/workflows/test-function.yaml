@@ -41,7 +41,7 @@ jobs:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}
         run: |
           cd functions
-          echo $GOOGLE_APPLICATION_CREDENTIALS | base64 -d > service_account.json
+          echo $GOOGLE_APPLICATION_CREDENTIALS | base64 -d > google-key.json
           firebase deploy --only  functions
      
 
