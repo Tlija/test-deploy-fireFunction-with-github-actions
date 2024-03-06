@@ -38,7 +38,7 @@ jobs:
       - name: Load environment variables
         run: |
           pwd
-          ls -la env
+          ls 
           source env/.env
           echo "Loaded environment variables"
       - name: Deploy functions directly
