@@ -32,8 +32,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Print current directory
+        run: |
+          pwd
       - name: Load environment variables
         run: |
+          pwd
+          ls -la env
           source env/.env
           echo "Loaded environment variables"
       - name: Deploy functions directly
