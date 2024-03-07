@@ -39,7 +39,7 @@ jobs:
 
       - name: Prepare Google Application Credentials
         run: |
-          echo "${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}" | base64 --decode > "functions/src/test/google-key.json"
+          echo ${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }} | base64 --decode > "functions/src/test/google-key.json"
 
       - name: Use Firebase Dev
         run: firebase use dev --debug
@@ -49,4 +49,4 @@ jobs:
 
       - name: Remove Credentials File
         if: success() || failure()
-        run: rm google-key.json
+        run: rm functions/src/test/google-key.json
