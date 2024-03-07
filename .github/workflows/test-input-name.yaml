@@ -1,12 +1,11 @@
 name: Deploy Specific Function
 
-
-on: # Define workflow dispatch configuration
- workflow_dispatch:
-  inputs:
-    function_name:
-      description: 'Name of the function to deploy'
-      required: true
+on:  # Add the `on` section
+  workflow_dispatch:  # Define the manual trigger here
+    inputs:
+      function_name:
+        description: 'Name of the function to deploy'
+        required: true
 
 jobs:
   deploy:
@@ -21,7 +20,7 @@ jobs:
       - name: Retrieve function name from input
         id: get_function_name
         run:
-            echo "Function to deploy: ${{ github.event.inputs.function_name }}"
+          echo "Function to deploy: ${{ github.event.inputs.function_name }}"
 
       - name: Deploy the specified function
         env:
@@ -29,4 +28,3 @@ jobs:
         run: |
           cd functions
           firebase deploy --only "${{ github.event.inputs.function_name }}"
-
