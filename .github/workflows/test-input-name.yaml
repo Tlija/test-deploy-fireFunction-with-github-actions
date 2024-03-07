@@ -20,10 +20,10 @@ jobs:
       - name: Retrieve function name from input
         id: get_function_name
         run: echo "Function to deploy ${{ github.event.inputs.function_name }}"
-      - name: Deploy the specified function
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}
 
-        run: |
-          cd functions
-          firebase deploy --only "${{ steps.get_function_name.outputs.stdout }}"
+      - name: Deploy the specified function
+        uses: aronep6/action-functions-deploy@1.0.0
+        with:
+          serviceAccountKey: ${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}
+          projectId: aibs-partenaire-testing  # Replace with your actual project ID
+          functions: "${{ steps.get_function_name.outputs.stdout }}"  # Pass function name from input
