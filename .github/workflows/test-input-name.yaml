@@ -24,6 +24,8 @@ jobs:
       - name: Deploy the specified function
         uses: christian/deploy-firebase-functions@1.0.0y
         with:
-          serviceAccountKey: ${{ vars.SERVICE_ACCOUNT_KEY_SECRET_NAME }}
+          serviceAccountKey: ${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}
           projectId: aibs-partenaire-testing  # Replace with your actual project ID
           functions: "${{ steps.get_function_name.outputs.stdout }}"  # Pass function name from input
+
+
