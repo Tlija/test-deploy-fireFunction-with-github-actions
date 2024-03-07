@@ -1,12 +1,8 @@
 name: Deploy Specific Function
 
-on:
-  push:
-    branches:
-      - 'main'
 
-# Define workflow dispatch configuration
-workflow_dispatch:
+on: # Define workflow dispatch configuration
+ workflow_dispatch:
   inputs:
     function_name:
       description: 'Name of the function to deploy'
