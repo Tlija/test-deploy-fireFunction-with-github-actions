@@ -1,5 +1,10 @@
 name: Deploy Specific Function
 
+on:
+  push:
+    branches:
+      - 'main'
+
 # Define workflow dispatch configuration
 workflow_dispatch:
   inputs:
