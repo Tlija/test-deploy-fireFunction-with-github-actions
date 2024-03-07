@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      GOOGLE_APPLICATION_CREDENTIALS: google-key.json
+      GOOGLE_APPLICATION_CREDENTIALS: functions/src/test/google-key.json
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
@@ -32,14 +32,14 @@ jobs:
 
       - name: Install Dependencies
         working-directory: ./functions
-        run: npm ci
+        run: npm install
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
       - name: Prepare Google Application Credentials
         run: |
-          echo "${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}" | base64 --decode > "google-key.json"
+          echo "${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}" | base64 --decode > "functions/src/test/google-key.json"
 
       - name: Use Firebase Dev
         run: firebase use dev --debug
