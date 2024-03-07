@@ -1,0 +1,29 @@
+name: Deploy Specific Function
+
+on:
+  workflow_dispatch:
+    inputs:
+      function_name:
+        description: 'Name of the function to deploy'
+        required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Firebase Tools
+        run: npm install -g firebase-tools@latest
+
+      - name: Retrieve function name from input
+        id: get_function_name
+        run: echo "Function to deploy ${{ github.event.inputs.function_name }}"
+
+      - name: Deploy the specified function
+        uses: christian/deploy-firebase-functions@1.0.0y
+        with:
+          serviceAccountKey: ${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}
+          projectId: aibs-partenaire-testing  
+          functions: "${{ steps.get_function_name.outputs.stdout }}"
