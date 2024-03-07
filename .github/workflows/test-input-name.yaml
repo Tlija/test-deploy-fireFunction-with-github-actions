@@ -1,7 +1,7 @@
 name: Deploy Specific Function
 
 on:
-  workflow_dispatch:  # Define the manual trigger here
+  workflow_dispatch:
     inputs:
       function_name:
         description: 'Name of the function to deploy'
