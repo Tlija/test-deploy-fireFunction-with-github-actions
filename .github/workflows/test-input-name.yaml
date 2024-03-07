@@ -37,10 +37,10 @@ jobs:
         run: |
           echo "${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}" | base64 --decode > "google-application-credentials.json"
 
-      - name: Use Firebase aibs-partenaire-testing
+      - name: Use Firebase Dev
         shell: bash
         run: |
-          firebase use aibs-partenaire-testing --debug
+          firebase use dev --debug
 
       - name: Deploy Firebase functions
         shell: bash
