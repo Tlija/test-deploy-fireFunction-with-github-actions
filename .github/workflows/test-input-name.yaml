@@ -19,8 +19,7 @@ jobs:
 
       - name: Retrieve function name from input
         id: get_function_name
-        run:
-          echo "Function to deploy: ${{ github.event.inputs.function_name }}"
+        run:echo "Function to deploy: ${{ github.event.inputs.function_name }}"
 
       - name: Deploy the specified function
         env:
