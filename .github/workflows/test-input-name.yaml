@@ -22,7 +22,7 @@ jobs:
         run: echo "Function to deploy ${{ github.event.inputs.function_name }}"
 
       - name: Deploy the specified function
-        uses: aronep6/action-functions-deploy@1.0.0
+        uses: baronet6/action-functions-deploy@1.0.0
         with:
           serviceAccountKey: ${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}
           projectId: aibs-partenaire-testing  # Replace with your actual project ID
