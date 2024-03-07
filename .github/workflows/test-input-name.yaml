@@ -31,6 +31,10 @@ jobs:
       - name: Install Dependencies
         shell: bash
         working-directory: ./functions
+        run: |
+          npm install
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
 
       - name: Prepare Google Application Credentials
         shell: bash
