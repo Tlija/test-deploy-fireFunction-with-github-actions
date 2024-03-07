@@ -1,26 +1,29 @@
+name: Deploy Specific Function
 
-name: Basic Workflow Dispatch Example
-
-on:
-  workflow_dispatch:
+on:  # Add the `on` section
+  workflow_dispatch:  # Define the manual trigger here
     inputs:
-      environment:
-        description: 'The environment to deploy to'
+      function_name:
+        description: 'Name of the function to deploy'
         required: true
-        default: 'dev'
-        type: choice
-        options:
-          - production
-          - qa
-          - dev
-
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy
-        run: echo "Deploying to ${{ github.event.inputs.environment }} environment"
+      - name: Install Firebase Tools
+        run: npm install -g firebase-tools@latest
+
+      - name: Retrieve function name from input
+        id: get_function_name
+        run: echo "Function to deploy ${{ github.event.inputs.function_name }}"
+      - name: Deploy the specified function
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}
+        run: |
+          cd functions
+          firebase deploy --only "${{ github.event.inputs.function_name }}"
+
