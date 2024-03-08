@@ -51,14 +51,10 @@ jobs:
         run: echo ::set-output name=functionName ${{ github.event.inputs.function_name }}
 
       - name: Deploy Only the Specified Function
-        uses: google/firebase-tools@latest  # Official action for better maintainability
-        with:
-          projectDir: ./functions  # Update if your function code resides elsewhere
-          only: ${{ steps.get_function_name.outputs.functionName }}
-          # Additional options (uncomment and adjust as needed):
-          # - **firebase-tools:** <version>  # Override Firebase Tools version
-          # - **non-interactive:** true  # Suppress prompts
-          # - **debug:** logging  # Enable debug logging (e.g., 'logging')
+        shell: bash
+        run: firebase deploy --only functions:${{ steps.get_function_name.outputs.functionName }} --non-interactive --debug
+
+
 
       - name: Remove credentials file
         if: success() || failure()
