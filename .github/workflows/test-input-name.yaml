@@ -1,9 +1,11 @@
-name: Deploy to Dev
+name: Deploy Specific Function
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+    inputs:
+      function_name:
+        description: 'Name of the function to deploy'
+        required: true
 
 jobs:
   deploy:
@@ -14,12 +16,14 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+
+      - name: Setup Node.js (if using Node.js for your functions)
+        uses: actions/setup-node@v2  # Optional, adapt if needed
         with:
-          node-version: 18
-      - name: Cache Dependencies
-        uses: actions/cache@v3
+          node-version: 18  # Adjust based on your function's requirements
+
+      - name: Cache Dependencies (if applicable)
+        uses: actions/cache@v3  # Optional, adapt if needed
         id: cache-dependencies
         with:
           path: |
@@ -28,24 +32,34 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-      - name: Install Dependencies
+
+      - name: Install Dependencies (if using Node.js for your functions)
         shell: bash
         working-directory: ./functions
-        run: |
-          npm install
+        run: npm install  # Adjust if using a different package manager
+
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
       - name: Prepare Google Application Credentials
         shell: bash
         run: |
-          echo "${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}" | base64 --decode > "google-application-credentials.json"
+          echo "${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}" | base64 --decode > google-application-credentials.json
 
-      - name: Deploy Firebase functions
-        shell: bash
-        run: firebase deploy --only functions --non-interactive --debug
+      - name: Retrieve Function Name from Input
+        id: get_function_name
+        run: echo ::set-output name=functionName ${{ github.event.inputs.function_name }}
+
+      - name: Deploy Only the Specified Function
+        uses: google/firebase-tools@latest  # Official action for better maintainability
+        with:
+          projectDir: ./functions  # Update if your function code resides elsewhere
+          only: ${{ steps.get_function_name.outputs.functionName }}
+          # Additional options (uncomment and adjust as needed):
+          # - **firebase-tools:** <version>  # Override Firebase Tools version
+          # - **non-interactive:** true  # Suppress prompts
+          # - **debug:** logging  # Enable debug logging (e.g., 'logging')
 
       - name: Remove credentials file
         if: success() || failure()
-        run: |
-          rm google-application-credentials.json
+        run: rm google-application-credentials.json
