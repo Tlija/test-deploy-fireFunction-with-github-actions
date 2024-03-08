@@ -1,8 +1,7 @@
-import * as functions from "firebase-functions";
+import functions = require('firebase-functions/v2/https');
 
-export const firstFunctionHttp = functions.https.onRequest((req, res) => {
-    res.send("test fireFunction");
-});
-
-
-
+exports.firstFunctionHttp = functions.onCall({ region: "europe-west4"},
+    async request => {
+        return "test fireFunction";
+    }
+);
