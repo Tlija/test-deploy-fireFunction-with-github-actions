@@ -46,13 +46,9 @@ jobs:
         run: |
           echo "${{ secrets.SERVICE_ACCOUNT_KEY_SECRET_NAME }}" | base64 --decode > google-application-credentials.json
 
-      - name: Retrieve Function Name from Input
-        id: get_function_name
-        run: echo ::set-output name=functionName ${{ github.event.inputs.function_name }}
-
       - name: Deploy Only the Specified Function
         shell: bash
-        run: firebase deploy --only functions:firstFunctionHttp --non-interactive --debug
+        run: firebase deploy --only functions:${{ github.event.inputs.function_name }} --non-interactive --debug
       - name: Remove credentials file
         if: success() || failure()
         run: rm google-application-credentials.json
