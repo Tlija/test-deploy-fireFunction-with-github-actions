@@ -52,7 +52,7 @@ jobs:
 
       - name: Deploy Only the Specified Function
         shell: bash
-        run: yes N | firebase deploy --only functions:${{ steps.get_function_name.outputs.functionName }} --non-interactive --debug
+        run: firebase deploy --only functions:${{ steps.get_function_name.outputs.functionName }} --non-interactive --debug
       - name: Remove credentials file
         if: success() || failure()
         run: rm google-application-credentials.json
