@@ -20,6 +20,8 @@
   },
   "include": [
     "src",
+    "node_modules/ts-jest/globals.d.ts",
+    "node_modules/ts-jest/globals.d.ts",
     "node_modules/ts-jest/globals.d.ts"
   ],
   "compileOnSave": true
