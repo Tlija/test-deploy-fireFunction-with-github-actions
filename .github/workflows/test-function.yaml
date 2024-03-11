@@ -68,8 +68,8 @@ jobs:
         - name: Remove credentials file
           if: success() || failure()
           run: |
-            rm google-application-credentials.json
-     
+             rm google-application-credentials.json
+  
 
   create_function_input:
     needs: lint_and_test

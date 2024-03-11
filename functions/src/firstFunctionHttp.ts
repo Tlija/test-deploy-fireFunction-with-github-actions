@@ -1,6 +1,6 @@
-import functions from "firebase-functions/v2/https";
+import * as functions from "firebase-functions";
 
-exports.firstFunctionHttp = functions.onCall({region: "europe-west4"},
+export const firstFunctionHttp = functions.region("europe-west4").https.onCall(
     async () => {
         return "test fireFunction";
     }

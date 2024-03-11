@@ -3,5 +3,6 @@ module.exports = {
   testEnvironment: 'node',
   testTimeout: 15000,
   watch:false,
-  watchAll:false
+  watchAll:false,
+
 };
