@@ -16,7 +16,8 @@
     "resolveJsonModule": true, // Allow resolving JSON modules
     "isolatedModules": true, // Enable isolated modules for better tree-shaking
     "jsx": "react", // If using JSX, specify the JSX factory (e.g., "react")
-    "declaration": true // Generate type declaration files (if desired)
+    "declaration": true, // Generate type declaration files (if desired)
+    "types": ["jest"]
   },
   "include": [
     "src",

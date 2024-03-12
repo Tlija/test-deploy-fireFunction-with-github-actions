@@ -4,5 +4,4 @@ module.exports = {
   testTimeout: 15000,
   watch:false,
   watchAll:false,
-
 };
