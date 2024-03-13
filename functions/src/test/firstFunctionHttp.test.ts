@@ -7,7 +7,7 @@ describe('firstFunctionHttp', () => {
     beforeAll(() => {
         const firstFunctionHttp = functions.firstFunctionHttp;
         const test = firebaseFunctionsTest();
-        wrapped = test.wrap(firstFunctionHttp as  any) ;
+        wrapped = test.wrap(firstFunctionHttp as any) ;
     });
 
     afterAll(() => {
