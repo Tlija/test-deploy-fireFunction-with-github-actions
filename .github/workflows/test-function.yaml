@@ -20,7 +20,8 @@ jobs:
           node-version: '18'
       - name: Install dependencies
         run: npm install
-
+      - name: Linting
+        run: npm run lint
       - name: Testing
         run: npm test
 
@@ -70,32 +71,5 @@ jobs:
              rm google-application-credentials.json
   
 
-  create_function_input:
-    needs: lint_and_test
-    if: github.ref != 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Create function name input
-        id: create_function_name
-        run: |
-          # Logic to generate a function name input
-          echo "::set-output name=function_name::myFunction"
-      - name: Create function name input
-        id: set_function_name
-        run: echo "${{ steps.create_function_name.outputs.function_name }}"
-      - name: Validate deployment
-        uses: actions/github-script@v4
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const response = await github.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: 'Create Cloud Function',
-              head: context.sha,
-              base: 'main', // Or master, depending on your default branch
-              body: 'Create a new Cloud Function with the name ' + '${{ steps.set_function_name.outputs.function_name }}',
-            });
-            console.log(response);
+ 
+    

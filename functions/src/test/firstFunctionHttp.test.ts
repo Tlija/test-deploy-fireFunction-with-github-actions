@@ -1,7 +1,7 @@
 import firebaseFunctionsTest from "firebase-functions-test";
-import * as functions from '../firstFunctionHttp';
+import * as functions from "../firstFunctionHttp";
 
-describe('firstFunctionHttp', () => {
+describe("firstFunctionHttp", () => {
     let wrapped: any;
 
     beforeAll(() => {
@@ -15,7 +15,7 @@ describe('firstFunctionHttp', () => {
         firebaseFunctionsTest().cleanup();
     });
 
-    it('should return "test fireFunction"', async () => {
+    it("should return test fireFunction", async () => {
         const result = await wrapped({});
         expect(result).toEqual("test fireFunction");
     });
